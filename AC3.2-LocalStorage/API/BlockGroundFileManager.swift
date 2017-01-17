@@ -9,7 +9,7 @@
 import Foundation
 
 internal class BlockGroundFileManager {
-  private let manager: FileManager = FileManager()
+  private let manager: FileManager = FileManager.default
   private let folderName: String = "BlockGrounds"
   private var rootURL: URL!
   private var imagesURL: URL!
@@ -49,5 +49,4 @@ internal class BlockGroundFileManager {
     }
   }
   
-  // TODO: Contents should be just images
 }

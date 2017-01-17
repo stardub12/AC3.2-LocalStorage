@@ -80,11 +80,23 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
   
   // MARK: - Download Delegate 
   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-    // TODO check for
+    // TODO check for finished download
+    print("Did finish downloading: \(downloadTask.taskDescription)")
   }
   
   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
     // TODO: keep track of periodic downloads
+    
+    if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {
+      let downloadProgress = Double(totalBytesWritten) / 1000000.0 // in MBs
+      let downloadProgressString = String(format: "Could not determine filesize .... downloading: %0.2fMB", downloadProgress)
+      print(downloadProgressString)
+      return
+    }
+    
+    let percentageComplete = (Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)) * 100.0
+    
+    print("Downloading \(downloadTask.taskDescription!) ....... \(percentageComplete)% ")
   }
 
 }

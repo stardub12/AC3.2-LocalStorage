@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct BlockGroundConstant {
   static let notSet = "Not Set"
@@ -15,16 +14,13 @@ struct BlockGroundConstant {
   static let imageEndPoint = "/images"
 }
 
-internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
+internal class BlockGroundAPIManager {
   private var bookId: String
   private var baseURL: String
-  private var session: URLSession!
+  private let session: URLSession = URLSession(configuration: .default)
   
   static let shared: BlockGroundAPIManager = BlockGroundAPIManager()
-  private override init() {
-//    session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    
-    // TODO: Add Exceptions/Errors for values being .notSet
+  private init() {
     bookId = BlockGroundConstant.notSet
     baseURL = BlockGroundConstant.baseURL
   }
@@ -32,7 +28,6 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
   internal func configure(bookId: String, baseURL: String = BlockGroundConstant.baseURL) {
     self.bookId = bookId
     self.baseURL = baseURL
-    self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
   }
   
   internal func requestAllBlockGrounds(completion: @escaping ([BlockGround]?, Error?)->Void) {
@@ -46,8 +41,8 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
         return
       }
       
-      // check data
       if data != nil {
+        
         do {
           
           let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String : AnyHashable]]
@@ -59,7 +54,6 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
             allBlockGrounds.append(validBlockGround)
           }
           
-          // send back some blockgrounds
           completion(allBlockGrounds, nil)
         }
         catch {
@@ -67,24 +61,8 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
         }
         
       }
+      
     }.resume()
     
   }
-  
-  internal func downloadBlockGround(_ blockground: BlockGround, completion: @escaping (UIImage?)->Void) {
-    let url = URL(string: blockground.imageFullResURL)!
-    let downloadTask = session.downloadTask(with: url)
-    downloadTask.taskDescription = blockground.title
-    downloadTask.resume()
-  }
-  
-  // MARK: - Download Delegate 
-  func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-    // TODO check for
-  }
-  
-  func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-    // TODO: keep track of periodic downloads
-  }
-
 }

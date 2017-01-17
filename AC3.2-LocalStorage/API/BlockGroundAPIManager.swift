@@ -15,16 +15,14 @@ struct BlockGroundConstant {
   static let imageEndPoint = "/images"
 }
 
-internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
+// add in download delegation
+internal class BlockGroundAPIManager: NSObject {
   private var bookId: String
   private var baseURL: String
-  private var session: URLSession!
+  private var session: URLSession! = URLSession.shared
   
   static let shared: BlockGroundAPIManager = BlockGroundAPIManager()
   private override init() {
-//    session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-    
-    // TODO: Add Exceptions/Errors for values being .notSet
     bookId = BlockGroundConstant.notSet
     baseURL = BlockGroundConstant.baseURL
   }
@@ -32,71 +30,50 @@ internal class BlockGroundAPIManager: NSObject, URLSessionDownloadDelegate {
   internal func configure(bookId: String, baseURL: String = BlockGroundConstant.baseURL) {
     self.bookId = bookId
     self.baseURL = baseURL
-    self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
+//    self.session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
   }
   
   internal func requestAllBlockGrounds(completion: @escaping ([BlockGround]?, Error?)->Void) {
     
-    let url = URL(string: baseURL + bookId + BlockGroundConstant.imageEndPoint)!
+    // define URL from base + bookId + endpoint
+    let url = URL(string: "")!
+    
+    // create data task
     session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
       
-      if error != nil {
-        print("Error: \(error!)")
-        completion(nil, error)
-        return
-      }
+      // check for errors
       
-      // check data
-      if data != nil {
-        do {
-          
-          let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [[String : AnyHashable]]
-          guard let validJSONDict = json else { return }
-          
-          var allBlockGrounds: [BlockGround] = []
-          for blockGround in validJSONDict {
-            guard let validBlockGround = BlockGround(json: blockGround) else { continue }
-            allBlockGrounds.append(validBlockGround)
-          }
-          
-          // send back some blockgrounds
-          completion(allBlockGrounds, nil)
-        }
-        catch {
-          print("Error encountered parsing data: \(error)")
-        }
-        
-      }
+      // check for data
+      
+      // parse model objects
+
+      // implement completions
     }.resume()
     
   }
   
   internal func downloadBlockGround(_ blockground: BlockGround, completion: @escaping (UIImage?)->Void) {
-    let url = URL(string: blockground.imageFullResURL)!
-    let downloadTask = session.downloadTask(with: url)
-    downloadTask.taskDescription = blockground.title
-    downloadTask.resume()
+    // define url from blockground model
+
+    // create download task for session.. with or without handler?
+    
+    // give task a description
+    
+    // start task
   }
   
   // MARK: - Download Delegate 
-  func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-    // TODO check for finished download
-    print("Did finish downloading: \(downloadTask.taskDescription)")
-  }
+//  func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+    // check for finished download
+//  }
   
   func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-    // TODO: keep track of periodic downloads
+    // keep track of periodic downloads
     
-    if totalBytesExpectedToWrite == NSURLSessionTransferSizeUnknown {
-      let downloadProgress = Double(totalBytesWritten) / 1000000.0 // in MBs
-      let downloadProgressString = String(format: "Could not determine filesize .... downloading: %0.2fMB", downloadProgress)
-      print(downloadProgressString)
-      return
-    }
+    // check for % completed and print
     
-    let percentageComplete = (Double(totalBytesWritten) / Double(totalBytesExpectedToWrite)) * 100.0
-    
-    print("Downloading \(downloadTask.taskDescription!) ....... \(percentageComplete)% ")
+    // what do we do when the nsurl session transfer size is unknown?
+    // lets display some info at least (MB)
   }
 
 }

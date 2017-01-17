@@ -20,19 +20,17 @@ class LocalFilesViewController: UIViewController, UITableViewDataSource, UITable
     setupViewHierarchy()
     configureConstraints()
     
+    // load directory items
     self.directoryItems = BlockGroundFileManager.shared.listContentsOfBlockgroundsDir()
 
-    BlockGroundAPIManager.shared.configure(bookId: "587d55d093e81a0400aef3b2")
+    // configure api manager
+    
+    // request blockgrounds
+    
+    // download blockground images
+    BlockGroundAPIManager.shared.configure(bookId: "FILL ME IN")
     BlockGroundAPIManager.shared.requestAllBlockGrounds { (blockground: [BlockGround]?, error: Error?) in
-      
-      if blockground != nil {
-        for block in blockground! {
-          BlockGroundAPIManager.shared.downloadBlockGround(block, completion: { (image: UIImage?) in
-            
-          })
-        }
-      }
-      
+      // download blockground images
     }
   }
   
@@ -41,24 +39,16 @@ class LocalFilesViewController: UIViewController, UITableViewDataSource, UITable
   private func configureConstraints() {
     self.edgesForExtendedLayout = []
     
-    self.previewView.snp.makeConstraints { (make) in
-      make.top.leading.trailing.equalToSuperview()
-      make.height.equalTo(self.view).multipliedBy(0.25)
-    }
-    
-    self.localFilesTable.snp.makeConstraints { (make) in
-      make.top.equalTo(self.previewView.snp.bottom)
-      make.leading.trailing.bottom.equalToSuperview()
-    }
+    // lay out views
   }
   
   private func setupViewHierarchy() {
-    self.view.addSubview(previewView)
-    self.view.addSubview(localFilesTable)
+    // add views
+
+    // set delegate/datasource
     
-    self.localFilesTable.delegate = self
-    self.localFilesTable.dataSource = self
-    self.localFilesTable.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+    // register tableview
+    
   }
   
   
@@ -76,11 +66,11 @@ class LocalFilesViewController: UIViewController, UITableViewDataSource, UITable
     
     cell.textLabel?.text = self.directoryItems?[indexPath.row].absoluteURL.lastPathComponent
     print("cell.textLabel.text = \(cell.textLabel?.text)")
+    
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
   }
   
   // MARK: - Lazy Inits
@@ -92,7 +82,6 @@ class LocalFilesViewController: UIViewController, UITableViewDataSource, UITable
   
   internal lazy var localFilesTable: UITableView = {
     let tableView: UITableView = UITableView(frame: CGRect.zero, style: UITableViewStyle.plain)
-    
     return tableView
   }()
 }

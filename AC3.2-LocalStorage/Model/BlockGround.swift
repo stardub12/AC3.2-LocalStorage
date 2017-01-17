@@ -37,6 +37,7 @@ internal struct BlockGround: JSONConvertible {
     self = BlockGround(shortName: bgName, title: bgTitle, imageFullResURL: bgImageFullResURL)
   }
   
+  // TODO: - complete method
   func toJson() -> [String : AnyHashable] {
     return [String : AnyHashable]()
   }

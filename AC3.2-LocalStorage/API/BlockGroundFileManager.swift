@@ -9,44 +9,34 @@
 import Foundation
 
 internal class BlockGroundFileManager {
-  private let manager: FileManager = FileManager.default
-  private let folderName: String = "BlockGrounds"
-  private var rootURL: URL!
-  private var imagesURL: URL!
+  // private!
   
+  // needs: instance of FilemManager... maybe a default?
+  //        folder name
+  //        rootURL
+  //        imagesURL
+  
+  // singleton
   internal static let shared: BlockGroundFileManager = BlockGroundFileManager()
   private init() {
-    do {
-      // define a rootURL
-      rootURL = try manager.url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+      // define a rootURL using url(for:in:appropriateFor:create:true)
+      // check that we can actually found it, but how?
+
+      // create & define a Blockground Images URL relative to the root
       
-      // create & define a Blockground Images URL
-      imagesURL = URL(string: folderName, relativeTo: rootURL)
-      try manager.createDirectory(at: imagesURL, withIntermediateDirectories: true, attributes: nil)
-    }
-    catch {
-      print("Error attempting to locate local directory: \(error)")
-    }
+      // ok, now try to create the new folder dir with createDirectory(at:withIntermediateDirectories:attributes:)
   }
   
-  // TODO: locate URL, create if necessary
-  internal func rootDir() -> URL {
-    return self.rootURL
-  }
+//  internal func rootDir() -> URL {
+//  }
   
-  internal func blockgroundsDir() -> URL {
-    return self.imagesURL
-  }
+//  internal func blockgroundsDir() -> URL {
+//  }
   
-  // TODO: list contents of URL
+  // list contents of the blockgrounds dir
   internal func listContentsOfBlockgroundsDir() -> [URL]? {
-    do {
-      return try manager.contentsOfDirectory(at: rootDir(), includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
-    }
-    catch {
-      print("Error encountered listing contents of url: \(rootURL.lastPathComponent), \(error)")
-      return nil
-    }
+      // get the contents using cotentsOfDirectory(at:includingPropertiesForKeys:, options:)
+    return nil 
   }
   
 }

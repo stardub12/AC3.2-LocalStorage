@@ -15,6 +15,7 @@
 		14D9F7B81E2AE841003EC24B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D9F7B71E2AE841003EC24B /* AppDelegate.swift */; };
 		14D9F7BF1E2AE841003EC24B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D9F7BE1E2AE841003EC24B /* Assets.xcassets */; };
 		14D9F7C21E2AE841003EC24B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D9F7C01E2AE841003EC24B /* LaunchScreen.storyboard */; };
+		7DA07C001E31B7FA006BC583 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA07BFF1E31B7F9006BC583 /* Protocols.swift */; };
 		BED03E9A7A3F7EA6859AE9CC /* Pods_AC3_2_LocalStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D72B6EB00E9800602AA9B6D /* Pods_AC3_2_LocalStorage.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		14D9F7C11E2AE841003EC24B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		14D9F7C31E2AE841003EC24B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D72B6EB00E9800602AA9B6D /* Pods_AC3_2_LocalStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AC3_2_LocalStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DA07BFF1E31B7F9006BC583 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		D49257F50313D5804A77AE68 /* Pods-AC3.2-LocalStorage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC3.2-LocalStorage.release.xcconfig"; path = "Pods/Target Support Files/Pods-AC3.2-LocalStorage/Pods-AC3.2-LocalStorage.release.xcconfig"; sourceTree = "<group>"; };
 		EFE4D9550121B432ADB4C16C /* Pods-AC3.2-LocalStorage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AC3.2-LocalStorage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AC3.2-LocalStorage/Pods-AC3.2-LocalStorage.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				14D9F7B71E2AE841003EC24B /* AppDelegate.swift */,
+				7DA07C011E31B80A006BC583 /* Protocols */,
 				140452BC1E2D92B9003E13E2 /* Model */,
 				140452B51E2D8F19003E13E2 /* View Controllers */,
 				140452BF1E2D93D9003E13E2 /* Managers */,
@@ -135,6 +138,14 @@
 				1D72B6EB00E9800602AA9B6D /* Pods_AC3_2_LocalStorage.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DA07C011E31B80A006BC583 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7DA07BFF1E31B7F9006BC583 /* Protocols.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +273,7 @@
 			files = (
 				140452B41E2D8F13003E13E2 /* LocalFilesViewController.swift in Sources */,
 				140452B81E2D903A003E13E2 /* LocalStorageHelpers.swift in Sources */,
+				7DA07C001E31B7FA006BC583 /* Protocols.swift in Sources */,
 				140452C11E2D9D32003E13E2 /* BlockGroundFileManager.swift in Sources */,
 				140452BE1E2D93D5003E13E2 /* BlockGroundAPIManager.swift in Sources */,
 				140452BB1E2D92B5003E13E2 /* BlockGround.swift in Sources */,
